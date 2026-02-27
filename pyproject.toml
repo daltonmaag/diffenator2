@@ -1,37 +1,42 @@
-[tool.poetry]
+[build-system]
+requires = ["setuptools>=68", "setuptools-scm[toml]>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
 name = "diffenator2"
 description = "Compare two fonts"
-authors = [ "Marc Foley <m.foley.88@gmail.com>" ]
-version = "0"
+authors = [
+  { name = "Marc Foley", email = "m.foley.88@gmail.com" }
+]
+requires-python = ">=3.8"
+dynamic = ["version"]
 
-[tool.poetry-dynamic-versioning]
-enable = true
-source = "git-tag"
+dependencies = [
+  "fonttools[ufo]>=4.52.1",
+  "jinja2",
+  "Pillow",
+  "glyphsets==0.6.13",
+  "glyphsLib<6",
+  "uharfbuzz",
+  "pyahocorasick",
+  "selenium>=4.4.3",
+  "ninja",
+  "protobuf>=3.19.2,<=3.20.3",
+  "gflanguages",
+  "freetype-py",
+  "blackrenderer[skia]>=0.6.0",
+  "unicodedata2>=15.0.0,<16",
+  "tqdm>=4.64.1",
+  "youseedee>=0.5.0",
+  "python-bidi<0.5.0",
+  "setuptools<80.10",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.8,<4.0"
-fontTools = { version = ">=4.52.1", extras = ["ufo"] }
-jinja2 = "*"
-Pillow = "*"
-glyphsets = ">=0.6.5"
-uharfbuzz = "*"
-pyahocorasick = "*"
-selenium = ">=4.4.3"
-ninja = "*"
-protobuf = ">=3.19.2, <=3.20.3"
-gflanguages = "*"
-freetype-py = "*"
-blackrenderer = {extras = ["skia"], version = "^0.6.0"}
-unicodedata2 = "^15.0.0"
-tqdm = "^4.64.1"
-youseedee = "^0.5.0"
-python-bidi = "<0.5.0"
+[project.scripts]
+_diffbrowsers = "diffenator2._diffbrowsers:main"
+_diffenator = "diffenator2._diffenator:main"
+diffenator2 = "diffenator2.__main__:main"
 
-[build-system]
-requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
-build-backend = "poetry_dynamic_versioning.backend"
-
-[tool.poetry.scripts]
-_diffbrowsers = 'diffenator2._diffbrowsers:main'
-_diffenator = 'diffenator2._diffenator:main'
-diffenator2 = 'diffenator2.__main__:main'
+[tool.setuptools_scm]
+version_scheme = "guess-next-dev"
+local_scheme = "no-local-version"
